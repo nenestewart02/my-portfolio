@@ -116,3 +116,34 @@ h1 {
     display: block;
     margin: 0 auto 10px;
 }
+
+.forecast-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.forecast-card {
+    background-color: #f0f7f8;
+    padding: 15px 10px;
+    border-radius: 10px;
+    text-align: center;
+    width: 18%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.forecast-card h4 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #00796b;
+}
+
+.forecast-card img {
+    width: 40px;
+    height: 40px;
+}
+
+.forecast-card p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
