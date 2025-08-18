@@ -4,26 +4,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const weatherInfo = document.getElementById('weather-info');
     const unitBtns = document.querySelectorAll('.unit-btn');
 
-    // Replace with your actual API key
-    const apiKey = "YOUR_API_KEY"; 
+    const apiKey = "a3837965ed61ce76b99b6e105dd058af"; 
 
-    let weatherData = null; 
+    let weatherData = null; // Store both Fahrenheit and Celsius data
+    let currentUnit = 'fahrenheit'; // The current active unit
 
     const fetchWeather = async (city) => {
-        const activeUnit = document.querySelector('.unit-btn.active').dataset.unit;
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${activeUnit === 'fahrenheit' ? 'imperial' : 'metric'}`;
+        const urlFahrenheit = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+        const urlCelsius = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
         
         try {
-            const response = await fetch(url);
-            const data = await response.json();
+            const [responseF, responseC] = await Promise.all([
+                fetch(urlFahrenheit),
+                fetch(urlCelsius)
+            ]);
+            
+            const dataF = await responseF.json();
+            const dataC = await responseC.json();
 
-            if (data.cod === "404") {
+            if (dataF.cod === "404") {
                 weatherInfo.innerHTML = `<p class="placeholder">City not found. Please try again.</p>`;
                 return;
             }
 
-            weatherData = data;
-            displayWeather(weatherData, activeUnit);
+            weatherData = {
+                'fahrenheit': dataF,
+                'celsius': dataC
+            };
+
+            displayWeather(weatherData[currentUnit], currentUnit);
 
         } catch (error) {
             console.error('Error fetching weather data:', error);
@@ -68,10 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             unitBtns.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-
+            currentUnit = button.dataset.unit;
+            
             if (weatherData) {
-                const city = cityInput.value.trim();
-                fetchWeather(city);
+                displayWeather(weatherData[currentUnit], currentUnit);
             }
         });
     });
