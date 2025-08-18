@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Replace with your actual API key
     const apiKey = "a3837965ed61ce76b99b6e105dd058af"; 
 
-    // Function to fetch weather data
     const fetchWeather = async (city) => {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
         
@@ -26,9 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Function to display weather data
     const displayWeather = (data) => {
-        const { name, main, weather } = data;
+        const { name, main, weather, wind } = data;
         const iconCode = weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
@@ -37,12 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${iconUrl}" alt="${weather[0].description}">
             <p class="temp">${Math.round(main.temp)}°C</p>
             <p class="description">${weather[0].description}</p>
-            <p>Humidity: ${main.humidity}%</p>
             <p>Feels Like: ${Math.round(main.feels_like)}°C</p>
+            <p>Humidity: ${main.humidity}%</p>
+            <p>Wind Speed: ${Math.round(wind.speed * 3.6)} km/h</p>
         `;
     };
 
-    // Event listener for the search button
     searchBtn.addEventListener('click', () => {
         const city = cityInput.value.trim();
         if (city) {
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Event listener for pressing "Enter" in the input field
     cityInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             searchBtn.click();

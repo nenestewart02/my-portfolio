@@ -1,46 +1,89 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all the necessary HTML elements
     const taskInput = document.getElementById('task-input');
     const addTaskBtn = document.getElementById('add-task-btn');
     const taskList = document.getElementById('task-list');
 
-    // Function to load tasks from local storage
+    const filterBtns = document.querySelectorAll('.filters button');
+    const filterAllBtn = document.getElementById('filter-all');
+    const filterActiveBtn = document.getElementById('filter-active');
+    const filterCompletedBtn = document.getElementById('filter-completed');
+    const clearCompletedBtn = document.getElementById('clear-completed-btn');
+
     const loadTasks = () => {
-        // Get the tasks string from local storage
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        // Loop through the tasks and display each one
         tasks.forEach(task => displayTask(task));
     };
 
-    // Function to save tasks to local storage
     const saveTasks = () => {
-        // Get all the list items
         const tasks = Array.from(taskList.children).map(li => {
             return {
                 text: li.querySelector('.task-text').textContent,
                 completed: li.classList.contains('completed')
             };
         });
-        // Save the array of task objects to local storage
         localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        const activeFilterBtn = document.querySelector('.filters button.active');
+        if (activeFilterBtn) {
+            const filterType = activeFilterBtn.id.split('-')[1];
+            filterTasks(filterType);
+        }
     };
 
-    // Function to display a single task on the page
+    const filterTasks = (filterType) => {
+        const tasks = taskList.querySelectorAll('li');
+        tasks.forEach(task => {
+            const isCompleted = task.classList.contains('completed');
+            switch (filterType) {
+                case 'all':
+                    task.classList.remove('hidden');
+                    break;
+                case 'active':
+                    if (isCompleted) {
+                        task.classList.add('hidden');
+                    } else {
+                        task.classList.remove('hidden');
+                    }
+                    break;
+                case 'completed':
+                    if (!isCompleted) {
+                        task.classList.add('hidden');
+                    } else {
+                        task.classList.remove('hidden');
+                    }
+                    break;
+            }
+        });
+    };
+
     const displayTask = (task) => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span class="task-text">${task.text}</span>
+            <span class="task-text" contenteditable="true">${task.text}</span>
             <button class="delete-btn">×</button>
         `;
-        // Add the 'completed' class if the task is completed
         if (task.completed) {
             li.classList.add('completed');
         }
 
         // Event listener for marking a task as completed
         li.querySelector('.task-text').addEventListener('click', () => {
-            li.classList.toggle('completed');
+            if (!li.querySelector('.task-text').isContentEditable) {
+                li.classList.toggle('completed');
+                saveTasks();
+            }
+        });
+
+        // Event listener for editing a task
+        li.querySelector('.task-text').addEventListener('blur', () => {
             saveTasks();
+        });
+
+        li.querySelector('.task-text').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                li.querySelector('.task-text').blur();
+            }
         });
 
         // Event listener for the delete button
@@ -52,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         taskList.appendChild(li);
     };
 
-    // Event listener for the "Add Task" button
     addTaskBtn.addEventListener('click', () => {
         const taskText = taskInput.value.trim();
         if (taskText !== '') {
@@ -62,17 +104,31 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             displayTask(newTask);
             saveTasks();
-            taskInput.value = ''; // Clear the input field
+            taskInput.value = '';
         }
     });
 
-    // Event listener for pressing "Enter" on the input field
     taskInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             addTaskBtn.click();
         }
     });
 
-    // Load tasks when the page first loads
+    filterBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            const filterType = button.id.split('-')[1];
+            filterTasks(filterType);
+        });
+    });
+
+    // Event listener for clearing all completed tasks
+    clearCompletedBtn.addEventListener('click', () => {
+        const completedTasks = taskList.querySelectorAll('li.completed');
+        completedTasks.forEach(task => task.remove());
+        saveTasks();
+    });
+
     loadTasks();
 });

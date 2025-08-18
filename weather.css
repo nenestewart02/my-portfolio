@@ -91,3 +91,8 @@ h1 {
     text-align: center;
     font-style: italic;
 }
+
+.weather-info img {
+    display: block;
+    margin: 0 auto 10px;
+}
