@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
         localStorage.setItem('tasks', JSON.stringify(tasks));
-
+        
         const activeFilterBtn = document.querySelector('.filters button.active');
         if (activeFilterBtn) {
             const filterType = activeFilterBtn.id.split('-')[1];
@@ -66,23 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
             li.classList.add('completed');
         }
 
-        // Event listener for marking a task as completed
-        li.querySelector('.task-text').addEventListener('click', () => {
-            if (!li.querySelector('.task-text').isContentEditable) {
+        const taskTextSpan = li.querySelector('.task-text');
+
+        // Event listener to toggle 'completed' class on click
+        taskTextSpan.addEventListener('click', (e) => {
+            // Check if the user is trying to edit before toggling completion
+            if (e.detail === 1) { // Prevents conflict with double-click
                 li.classList.toggle('completed');
                 saveTasks();
             }
         });
 
-        // Event listener for editing a task
-        li.querySelector('.task-text').addEventListener('blur', () => {
+        // Event listener to save edits when the user clicks away
+        taskTextSpan.addEventListener('blur', () => {
             saveTasks();
         });
 
-        li.querySelector('.task-text').addEventListener('keypress', (e) => {
+        // Event listener to save edits when the user presses Enter
+        taskTextSpan.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                li.querySelector('.task-text').blur();
+                taskTextSpan.blur(); // Blur the element to trigger save
             }
         });
 
@@ -113,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addTaskBtn.click();
         }
     });
-
+    
     filterBtns.forEach(button => {
         button.addEventListener('click', () => {
             filterBtns.forEach(btn => btn.classList.remove('active'));
@@ -123,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Event listener for clearing all completed tasks
     clearCompletedBtn.addEventListener('click', () => {
         const completedTasks = taskList.querySelectorAll('li.completed');
         completedTasks.forEach(task => task.remove());
