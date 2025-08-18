@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #e0f7fa; /* Light blue background */
+    background-color: #e0f7fa;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,14 +19,14 @@ body {
 }
 
 h1 {
-    color: #00796b; /* Dark green heading */
+    color: #00796b;
     margin-bottom: 20px;
 }
 
 .search-box {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #city-input {
@@ -59,10 +59,30 @@ h1 {
     background-color: #004d40;
 }
 
+.unit-toggle {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.unit-btn {
+    background: none;
+    border: 1px solid #b2dfdb;
+    color: #00796b;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.unit-btn.active {
+    background-color: #00796b;
+    color: white;
+}
+
 .weather-info {
     margin-top: 20px;
     text-align: left;
-    min-height: 150px; /* Ensures space is reserved */
+    min-height: 150px;
 }
 
 .weather-info h2 {
@@ -78,7 +98,7 @@ h1 {
 .weather-info .temp {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #d32f2f; /* Red for temperature */
+    color: #d32f2f;
 }
 
 .weather-info .description {
