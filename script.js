@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', 'light');
     };
 
-    // Check for user's saved preference
+    // Check for user's saved preference, defaulting to dark mode
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    if (savedTheme === 'dark' || savedTheme === null) {
         enableDarkMode();
     }
 
