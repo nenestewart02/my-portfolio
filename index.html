@@ -3,90 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Nathan Stewart - Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <header>
-        <div class="container">
-            <h1>Nathan Stewart</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="mode-toggle" class="btn">Dark Mode</button>
     </header>
 
     <main>
-        <section id="about" class="section">
+        <section id="hero">
             <div class="container">
-    <h2>About Me</h2>
-    <p>
-        Hello! I'm an aspiring developer just starting my journey into the world of web development. I'm passionate about building clean, efficient, and user-friendly websites. My skills are currently focused on the core fundamentals: HTML, CSS, and JavaScript.
-    </p>
-    <p>
-        I enjoy learning new technologies and am always looking for new challenges to improve my abilities. This portfolio is a showcase of my initial projects and a testament to my dedication to growing as a developer. I'm excited to see where this path takes me and to contribute to meaningful projects in the future.
-    </p>
-</div>
-        </section>
-
-        <section id="projects" class="section">
-            <div class="container">
-                <h2>My Projects</h2>
-                <div class="project-grid">
-    <div class="project-card">
-        <h3>Weather Dashboard</h3>
-        <p>A web application that fetches real-time weather data from an API. This project demonstrates proficiency in asynchronous JavaScript and API integration to create a dynamic user experience.</p>
-        <a href="weather.html" target="_blank" rel="noopener noreferrer">View Project</a>
-    </div>
-    <div class="project-card">
-        <h3>Task Manager App</h3>
-        <p>A simple yet powerful to-do list application for managing daily tasks. This project showcases the use of local storage to save tasks, a dynamic interface, and event handling.</p>
-        <a href="tasks.html" target="_blank" rel="noopener noreferrer">View Project</a>
-    </div>
-    <div class="project-card">
-        <h3>Interactive Portfolio Website</h3>
-        <p>This is the very portfolio website you are viewing! It demonstrates proficiency in HTML for structure, CSS for modern, responsive design, and JavaScript for smooth scrolling and a great user experience.</p>
-        <a href="#" target="_blank" rel="noopener noreferrer">View Project</a>
-    </div>
-</div>
+                <h1>Hi, I'm Nathan Stewart</h1>
+                <p>An aspiring web developer</p>
             </div>
         </section>
 
-        <section id="contact" class="section">
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>
+                    Hello! I'm an aspiring developer just starting my journey into the world of web development. I'm passionate about building clean, efficient, and user-friendly websites. My skills are currently focused on the core fundamentals: HTML, CSS, and JavaScript.
+                </p>
+                <p>
+                    I enjoy learning new technologies and am always looking for new challenges to improve my abilities. This portfolio is a showcase of my initial projects and a testament to my dedication to growing as a developer. I'm excited to see where this path takes me and to contribute to meaningful projects in the future.
+                </p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2>My Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>Task Manager App</h3>
+                        <p>A simple to-do list application to add, edit, and delete tasks. It uses local storage to save your tasks, even after closing the browser.</p>
+                        <a href="tasks.html" target="_blank" class="btn">View Project</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Weather App</h3>
+                        <p>A dynamic weather dashboard that displays real-time weather and a 5-day forecast for any city in the world using an API.</p>
+                        <a href="weather.html" target="_blank" class="btn">View Project</a>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact">
             <div class="container">
                 <h2>Contact Me</h2>
                 <p>Feel free to get in touch!</p>
-                <p>Email: n.stewart02@outlook.com</p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/in/nathan-stewart-b36024341/" target="_blank" rel="noopener noreferrer">Nathan Stewart</a></p>
-
+                <a href="mailto:n.stewart02@outlook.com" class="btn">Send an Email</a>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Nathan Stewart</p>
-        </div>
+        <p>&copy; 2024 Nathan Stewart. All rights reserved.</p>
     </footer>
 
-<body>
-
-    <header>
-        </header>
-
-    <main>
-        </main>
-
-    <footer>
-        </footer>
-
-    <script src="script.js"></script>  </body>
-</html>
-
+    <script src="script.js"></script>
+</body>
 </html>
